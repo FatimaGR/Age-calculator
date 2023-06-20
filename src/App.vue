@@ -46,6 +46,7 @@ h1{
   padding: 0;
   font-size: 55px;
   font-style: italic;
+  letter-spacing: -1px;
   color: var(--off-black);
 }
 a { 
@@ -63,14 +64,20 @@ input{
   border: 1px solid var(--light-grey);
   border-radius: 7px;
   padding: 16px;
-  width: 90px;
+  width: 100%;
   box-sizing: border-box;
   font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+input:hover, input:focus{
+  outline: none;
+  border-color: var(--purple);
 }
 form{
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   box-sizing: border-box;
   gap: 60px;
@@ -86,14 +93,15 @@ form{
   justify-content: space-evenly;
   max-width: 100%;
   gap: 20px;
+  box-sizing: border-box;
 }
 main{
   height: auto;
-  width: 375px;
+  width: auto;
   padding: 30px;
   box-sizing: border-box;
   background-color: var(--white);
-  border-radius: 25px;
+  border-radius: 20px;
   border-bottom-right-radius: 85px;
 }
 .line{
@@ -122,9 +130,40 @@ button{
   align-items: center;
   position: absolute;
   bottom: 50%;
+  cursor: pointer;
+}
+button:hover{
+  background-color: var(--off-black);
 }
 img{
   width: 30px;
   height: 30px;
+}
+.results{
+  line-height: 1;
+}
+@media(min-width: 680px){
+}
+@media (min-width: 700px){
+  h1{
+    font-size: 80px;
+  }
+  main{
+    width: 650px;
+    border-bottom-right-radius: 145px;
+  }
+  input{
+    max-width: 120px;
+  }
+  .container{
+    justify-content: flex-end;
+    height: 45px;
+  }
+  form{
+    gap: 30px;
+  }
+  button{
+    bottom: 25%;
+  }
 }
 </style>
