@@ -1,32 +1,56 @@
 <script setup>
-let years = "--";
-let months = "--";
-let days = "--";
+import { ref } from "vue";
+const years = ref("--");
+const months = ref("--");
+const days = ref("--");
+
+const day = ref("");
+const month = ref("");
+const year = ref("");
+
+const today = new Date();
+const todayDay = today.getDate();
+const todayMonth = today.getMonth() + 1;
+const todayYear = today.getFullYear();
+
+const calculate = (day, month, year) => {
+	const numDays = new Date(todayYear, todayMonth, 0).getDate();
+  let prueba = 0;
+  (todayMonth >= month & todayDay >= day) ? years.value = todayYear - year : years.value = todayYear - year - 1;
+  (todayMonth >= month) ? prueba = todayMonth - month : prueba = month - todayMonth;
+  (todayDay >= day) ? months.value = 12 - prueba : months.value = 11 - prueba;
+  (todayDay >= day) ? days.value = todayDay - day : days.value = numDays - (day - todayDay);
+}
+const submit = () => {
+  console.log(day.value, month.value, year.value);
+  console.log(todayDay, todayMonth, todayYear);
+  calculate(day.value, month.value, year.value);
+}
 </script>
 
 <template>
   <main>
-    <form action="">
+    <form @submit.prevent="submit">
       <div class="inputs">
         <p class="option">
           <label for="day">DAY</label>
-          <input type="text" id="day" placeholder="DD"/>
+          <input type="text" id="day" placeholder="DD" v-model="day"/>
         </p>
     
         <p class="option">
           <label for="month">MONTH</label>
-          <input type="text" id="month" placeholder="MM"/>
+          <input type="text" id="month" placeholder="MM" v-model="month"/>
         </p>
     
         <p class="option">
           <label for="year">YEAR</label>
-          <input type="text" id="year" placeholder="YYYY"/>
+          <input type="text" id="year" placeholder="YYYY" v-model="year"/>
         </p>
       </div>
 
       <div class="container">
         <div class="line"></div>
-        <button type="submit">
+        <button @click="incremento">
           <img src="./assets/images/icon-arrow.svg"/>
         </button>
       </div>
@@ -141,8 +165,6 @@ img{
 }
 .results{
   line-height: 1;
-}
-@media(min-width: 680px){
 }
 @media (min-width: 700px){
   h1{
