@@ -18,7 +18,7 @@ const calculate = (day, month, year) => {
   let prueba = 0;
   (todayMonth >= month & todayDay >= day) ? years.value = todayYear - year : years.value = todayYear - year - 1;
   (todayMonth >= month) ? prueba = todayMonth - month : prueba = month - todayMonth;
-  (todayDay >= day) ? months.value = 12 - prueba : months.value = 11 - prueba;
+  (todayMonth >= month & todayDay >= day) ? months.value = prueba : months.value = 11 - prueba;
   (todayDay >= day) ? days.value = todayDay - day : days.value = numDays - (day - todayDay);
 }
 const submit = () => {
