@@ -13,18 +13,50 @@ const todayDay = today.getDate();
 const todayMonth = today.getMonth() + 1;
 const todayYear = today.getFullYear();
 
-const calculate = (day, month, year) => {
-	const numDays = new Date(todayYear, todayMonth, 0).getDate();
-  let prueba = 0;
-  (todayMonth >= month & todayDay >= day) ? years.value = todayYear - year : years.value = todayYear - year - 1;
-  (todayMonth >= month) ? prueba = todayMonth - month : prueba = month - todayMonth;
-  (todayMonth >= month & todayDay >= day) ? months.value = prueba : months.value = 11 - prueba;
+// Functions
+// Calculate years
+const calculateYears = (day, month, year) => {
+  if (todayMonth < month){
+    years.value = todayYear - year - 1
+  } else if (todayMonth == month){
+    if (todayDay >= day){
+      years.value = todayYear - year;
+    } else {
+      years.value = todayYear - year - 1
+    }
+  } else {
+    years.value = todayYear - year
+  }
+}
+// Calculate months
+const calculateMonths = (day, month) => {
+  if (todayMonth < month){
+    months.value = 11 - (month - todayMonth)
+    if (todayDay >= day){
+      months.value += 1
+    }
+  } else if (todayMonth == month){
+    months.value = 11
+    if (todayDay >= day){
+      months.value = 0
+    }
+  } else {
+    months.value = todayMonth - month
+    if (todayDay < day){
+      months.value -= 1
+    }
+  }
+}
+// Calculate days
+const calculateDays = (day) => {
+  const numDays = new Date(todayYear, todayMonth, 0).getDate();
   (todayDay >= day) ? days.value = todayDay - day : days.value = numDays - (day - todayDay);
 }
+
 const submit = () => {
-  console.log(day.value, month.value, year.value);
-  console.log(todayDay, todayMonth, todayYear);
-  calculate(day.value, month.value, year.value);
+  calculateYears(day.value, month.value, year.value);
+  calculateMonths(day.value, month.value);
+  calculateDays(day.value)
 }
 </script>
 
