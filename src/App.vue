@@ -48,9 +48,19 @@ const calculateMonths = (day, month) => {
   }
 }
 // Calculate days
+const numDay = (theYear, theMonth) => {
+  return new Date(theYear, theMonth, 0).getDate();
+}
+// const numDays = new Date(todayYear, todayMonth, 0).getDate();
+
 const calculateDays = (day) => {
-  const numDays = new Date(todayYear, todayMonth, 0).getDate();
-  (todayDay >= day) ? days.value = todayDay - day : days.value = numDays - (day - todayDay);
+  // const numberDays = numDay(todayMonth, todayYear)
+  // (todayDay >= day) ? days.value = todayDay - day : days.value = numberDays - (day - todayDay);
+  if (todayDay >= day){
+    days.value = todayDay - day
+  } else {
+    days.value = numDay(todayMonth, todayYear) - (day - todayDay)
+  }
 }
 
 const submit = () => {
@@ -67,16 +77,22 @@ const submit = () => {
         <p class="option">
           <label for="day">DAY</label>
           <input type="text" id="day" placeholder="DD" v-model="day"/>
+          <p v-if="day>numDay(month,year) || 1>day">Must be a valid date</p>
+          <p v-if="day.length == 0">The field is required</p>
         </p>
     
         <p class="option">
           <label for="month">MONTH</label>
           <input type="text" id="month" placeholder="MM" v-model="month"/>
+          <p v-if="month>12 || 1>month">Must be a valid month</p>
+          <p v-if="month.length == 0">The field is required</p>
         </p>
     
         <p class="option">
           <label for="year">YEAR</label>
           <input type="text" id="year" placeholder="YYYY" v-model="year"/>
+          <p v-if="year>todayYear">Must be in the past</p>
+          <p v-if="year.length == 0">The field is required</p>
         </p>
       </div>
 
@@ -129,6 +145,9 @@ input{
 input:hover, input:focus{
   outline: none;
   border-color: var(--purple);
+}
+.input-invalid{
+  border-color: red;
 }
 form{
   display: flex;
